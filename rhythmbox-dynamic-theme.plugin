@@ -1,0 +1,10 @@
+[Plugin]
+Loader=python3
+Module=rhythm_hue
+IAge=2
+Name=Rhythmbox Dynamic Theme
+Description=Dynamically themes Rhythmbox UI based on album art colors
+Authors=BOTbkcd
+Copyright=Copyright © 2025
+Website=https://github.com/BOTbkcd/rhythmbox-dynamic-theme
+Version=1.0.0
