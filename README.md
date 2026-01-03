@@ -2,8 +2,14 @@
 
 Rhythmbox Dynamic Theme automatically themes your Rhythmbox UI based on the album art of the currently playing song.
 
-![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
-![Python](https://img.shields.io/badge/python-3.8+-blue.svg)
+<p float="left">
+  <img src="screenshots/0.png" width="49%" alt="Screenshot 1">
+  <img src="screenshots/1.png" width="49%" alt="Screenshot 2">
+</p>
+<p float="left">
+  <img src="screenshots/2.png" width="49%" alt="Screenshot 3">
+  <img src="screenshots/3.png" width="49%" alt="Screenshot 4">
+</p>
 
 ## Features
 
@@ -20,17 +26,6 @@ Rhythmbox Dynamic Theme automatically themes your Rhythmbox UI based on the albu
 - **Graceful Fallback** - Uses beautiful default theme when album art is missing
 
 
-
-## Screenshots
-
-<p float="left">
-  <img src="screenshots/0.png" width="49%" alt="Screenshot 1">
-  <img src="screenshots/1.png" width="49%" alt="Screenshot 2">
-</p>
-<p float="left">
-  <img src="screenshots/2.png" width="49%" alt="Screenshot 3">
-  <img src="screenshots/3.png" width="49%" alt="Screenshot 4">
-</p>
 
 
 ## Installation
