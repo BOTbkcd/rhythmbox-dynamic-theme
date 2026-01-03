@@ -67,7 +67,7 @@ ln -s $(pwd) ~/.local/share/rhythmbox/plugins/rhythmbox-dynamic-theme
 
 1. Launch Rhythmbox
 2. Go to **Preferences → Plugins**
-3. Find **Rhythmbox Dynamic Theme** in the plugin list
+3. Find **Dynamic Theme** in the plugin list
 4. Check the checkbox to enable it
 
 The plugin should now be active! Start playing a song with album art to see the theme change.
