@@ -170,7 +170,7 @@ class ThemeManager:
         primary_30 = rgb_to_rgba(palette.primary, 0.3)    
         primary_50 = rgb_to_rgba(palette.primary, 0.5)    
 
-        accent_30 = rgb_to_rgba(palette.accent, 0.3)      
+        accent_30 = rgb_to_rgba(palette.accent, 0.3)
 
         # Get transition duration from config
         transition_duration = self.config.transition_duration
@@ -206,6 +206,7 @@ class ThemeManager:
             blend_30 = blend_colors(palette.background, palette.primary, 0.3)
             secondary_blend_30 = blend_colors(palette.background, palette.secondary, 0.3)
             foreground_blend_15 = blend_colors(palette.background, palette.foreground, 0.15)
+            foreground_primary_blend = blend_colors(palette.primary, palette.foreground, 0.5)
 
             # Define radial gradient positions that will be cycled through via timer
             gradient_positions = [
@@ -348,7 +349,13 @@ scale trough highlight,
 scale trough progress {{
     border: none;
     background: {primary};
-    box-shadow: 0px 0px 10px 3px {primary};
+    box-shadow: 0px 0px 8px 3px {primary};
+}}
+
+scale slider {{
+    background-color: {foreground_primary_blend};
+    box-shadow: 0px 0px 5px 1px {foreground};
+    border: none;
 }}
 """)
 
