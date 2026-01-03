@@ -23,10 +23,14 @@ Rhythmbox Dynamic Theme automatically themes your Rhythmbox UI based on the albu
 
 ## Screenshots
 
-![Screenshot 1](screenshots/0.png)
-![Screenshot 2](screenshots/1.png)
-![Screenshot 3](screenshots/2.png)
-![Screenshot 4](screenshots/3.png)
+<p float="left">
+  <img src="screenshots/0.png" width="49%" alt="Screenshot 1">
+  <img src="screenshots/1.png" width="49%" alt="Screenshot 2">
+</p>
+<p float="left">
+  <img src="screenshots/2.png" width="49%" alt="Screenshot 3">
+  <img src="screenshots/3.png" width="49%" alt="Screenshot 4">
+</p>
 
 
 ## Installation
@@ -79,7 +83,10 @@ ln -s $(pwd) ~/.local/share/rhythmbox/plugins/rhythmbox-dynamic-theme
 1. Launch Rhythmbox
 2. Go to **Preferences → Plugins**
 3. Find **Dynamic Theme** in the plugin list
+<img src="screenshots/Config-0.png" width="400" alt="Plugin List">
 4. Check the checkbox to enable it
+5. (Optional) Configure the default theme colors
+<img src="screenshots/Config-1.png" width="400" alt="Configuration Options">
 
 The plugin should now be active! Start playing a song with album art to see the theme change.
 
