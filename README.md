@@ -23,6 +23,10 @@ Rhythmbox Dynamic Theme automatically themes your Rhythmbox UI based on the albu
 
 ## Screenshots
 
+![Screenshot 1](screenshots/0.png)
+![Screenshot 2](screenshots/1.png)
+![Screenshot 3](screenshots/2.png)
+![Screenshot 4](screenshots/3.png)
 
 
 ## Installation
