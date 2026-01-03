@@ -210,14 +210,14 @@ class ThemeManager:
             # Define radial gradient positions that will be cycled through via timer
             gradient_positions = [
                 "100% 100%",
+                "65% 100%",
+                "15% 84%",
+                "0% 55%",
+                "5% 5%",
+                "35% 0%",
+                "65% 0%",
                 "100% 80%",   
                 "100% 20%",
-                "65% 0%",
-                "35% 0%",
-                "5% 5%",
-                "0% 55%",
-                "15% 84%",
-                "65% 100%"
             ]
 
             # Use current gradient position for this render
