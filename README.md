@@ -54,7 +54,14 @@ pip3 install --user Pillow mutagen
 ```bash
 # Clone the repository
 git clone https://github.com/BOTbkcd/rhythmbox-dynamic-theme.git
-cd Rhythm-Hue
+cd rhythmbox-dynamic-theme
+
+# Remove old installation if it exists
+rm -rf ~/.local/share/rhythmbox/plugins/rhythmbox-dynamic-theme
+
+# Install the GSettings schema (overwrites old version if present)
+sudo cp org.gnome.rhythmbox.plugins.rhythmbox-dynamic-theme.gschema.xml /usr/share/glib-2.0/schemas/
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Create plugin directory if it doesn't exist
 mkdir -p ~/.local/share/rhythmbox/plugins
@@ -71,6 +78,7 @@ ln -s $(pwd) ~/.local/share/rhythmbox/plugins/rhythmbox-dynamic-theme
 4. Check the checkbox to enable it
 
 The plugin should now be active! Start playing a song with album art to see the theme change.
+
 
 
 

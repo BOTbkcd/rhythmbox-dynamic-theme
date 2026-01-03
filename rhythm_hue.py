@@ -11,7 +11,7 @@ import os
 import tempfile
 import urllib.parse
 from typing import Optional
-from gi.repository import GObject, Peas, RB
+from gi.repository import GObject, Peas, PeasGtk, RB, Gtk, Gdk
 from color_extractor import ColorPalette, extract_colors_async, extract_colors_sync
 from theme_manager import ThemeManager
 from color_cache import ColorCache
@@ -21,11 +21,11 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('rhythmbox-dynamic-theme')
 
 
-class RhythmHuePlugin(GObject.Object, Peas.Activatable):
+class RhythmHuePlugin(GObject.Object, Peas.Activatable, PeasGtk.Configurable):
     """
     Rhythmbox plugin that dynamically themes UI based on album art colors.
 
-    Implements the Peas.Activatable interface for plugin lifecycle management.
+    Implements the Peas.Activatable interface for plugin lifecycle management and PeasGtk.Configurable for preferences dialog.
     """
 
     __gtype_name__ = 'RhythmHuePlugin'
@@ -360,3 +360,178 @@ class RhythmHuePlugin(GObject.Object, Peas.Activatable):
             except Exception as e:
                 logger.debug(f"Error cleaning up {temp_file}: {e}")
         self.temp_art_files.clear()
+
+    def do_create_configure_widget(self):
+        """
+        Create and return the preferences dialog widget.
+
+        This is called by Rhythmbox when the user clicks the Preferences
+        button for this plugin.
+
+        Returns:
+            Gtk.Widget: The preferences configuration widget
+        """
+        try:
+            # Initialize config if not already done (preferences can be accessed before activation)
+            if self.config is None:
+                self.config = PluginConfiguration()
+
+            # Get the directory where the plugin is located
+            plugin_dir = os.path.dirname(os.path.abspath(__file__))
+            ui_file = os.path.join(plugin_dir, 'preferences.ui')
+
+            # Load the UI file
+            builder = Gtk.Builder()
+            builder.add_from_file(ui_file)
+
+            # Get the main container
+            preferences_box = builder.get_object('preferences_box')
+
+            # Get color buttons
+            primary_button = builder.get_object('primary_color_button')
+            secondary_button = builder.get_object('secondary_color_button')
+            background_button = builder.get_object('background_color_button')
+            foreground_button = builder.get_object('foreground_color_button')
+            accent_button = builder.get_object('accent_color_button')
+
+            # Get reset buttons and restart bar
+            reset_primary_button = builder.get_object('reset_primary_button')
+            reset_secondary_button = builder.get_object('reset_secondary_button')
+            reset_background_button = builder.get_object('reset_background_button')
+            reset_foreground_button = builder.get_object('reset_foreground_button')
+            reset_accent_button = builder.get_object('reset_accent_button')
+            restart_bar = builder.get_object('restart_bar')
+            restart_app_button = builder.get_object('restart_app_button')
+
+            # Helper function to convert hex to Gdk.RGBA
+            def hex_to_rgba(hex_color):
+                hex_color = hex_color.lstrip('#')
+                r = int(hex_color[0:2], 16) / 255.0
+                g = int(hex_color[2:4], 16) / 255.0
+                b = int(hex_color[4:6], 16) / 255.0
+                rgba = Gdk.RGBA()
+                rgba.red = r
+                rgba.green = g
+                rgba.blue = b
+                rgba.alpha = 1.0
+                return rgba
+
+            # Helper function to convert Gdk.RGBA to hex
+            def rgba_to_hex(rgba):
+                r = int(rgba.red * 255)
+                g = int(rgba.green * 255)
+                b = int(rgba.blue * 255)
+                return f'#{r:02x}{g:02x}{b:02x}'
+
+            # Set initial colors
+            primary_button.set_rgba(hex_to_rgba(self.config.default_primary))
+            secondary_button.set_rgba(hex_to_rgba(self.config.default_secondary))
+            background_button.set_rgba(hex_to_rgba(self.config.default_background))
+            foreground_button.set_rgba(hex_to_rgba(self.config.default_foreground))
+            accent_button.set_rgba(hex_to_rgba(self.config.default_accent))
+
+            # Connect color change handlers
+            def on_primary_color_set(button):
+                rgba = button.get_rgba()
+                self.config.default_primary = rgba_to_hex(rgba)
+                restart_bar.set_visible(True)
+                logger.info(f"Primary color changed to: {self.config.default_primary}")
+
+            def on_secondary_color_set(button):
+                rgba = button.get_rgba()
+                self.config.default_secondary = rgba_to_hex(rgba)
+                restart_bar.set_visible(True)
+                logger.info(f"Secondary color changed to: {self.config.default_secondary}")
+
+            def on_background_color_set(button):
+                rgba = button.get_rgba()
+                self.config.default_background = rgba_to_hex(rgba)
+                restart_bar.set_visible(True)
+                logger.info(f"Background color changed to: {self.config.default_background}")
+
+            def on_foreground_color_set(button):
+                rgba = button.get_rgba()
+                self.config.default_foreground = rgba_to_hex(rgba)
+                restart_bar.set_visible(True)
+                logger.info(f"Foreground color changed to: {self.config.default_foreground}")
+
+            def on_accent_color_set(button):
+                rgba = button.get_rgba()
+                self.config.default_accent = rgba_to_hex(rgba)
+                restart_bar.set_visible(True)
+                logger.info(f"Accent color changed to: {self.config.default_accent}")
+
+            primary_button.connect('color-set', on_primary_color_set)
+            secondary_button.connect('color-set', on_secondary_color_set)
+            background_button.connect('color-set', on_background_color_set)
+            foreground_button.connect('color-set', on_foreground_color_set)
+            accent_button.connect('color-set', on_accent_color_set)
+
+            # Connect individual reset button handlers
+            def on_reset_primary_clicked(button):
+                default_color = '#9e0d43'
+                self.config.default_primary = default_color
+                primary_button.set_rgba(hex_to_rgba(default_color))
+                restart_bar.set_visible(True)
+                logger.info(f"Primary color reset to default: {default_color}")
+
+            def on_reset_secondary_clicked(button):
+                default_color = '#305b82'
+                self.config.default_secondary = default_color
+                secondary_button.set_rgba(hex_to_rgba(default_color))
+                restart_bar.set_visible(True)
+                logger.info(f"Secondary color reset to default: {default_color}")
+
+            def on_reset_background_clicked(button):
+                default_color = '#04040a'
+                self.config.default_background = default_color
+                background_button.set_rgba(hex_to_rgba(default_color))
+                restart_bar.set_visible(True)
+                logger.info(f"Background color reset to default: {default_color}")
+
+            def on_reset_foreground_clicked(button):
+                default_color = '#f0f0f0'
+                self.config.default_foreground = default_color
+                foreground_button.set_rgba(hex_to_rgba(default_color))
+                restart_bar.set_visible(True)
+                logger.info(f"Foreground color reset to default: {default_color}")
+
+            def on_reset_accent_clicked(button):
+                default_color = '#9e0d43'
+                self.config.default_accent = default_color
+                accent_button.set_rgba(hex_to_rgba(default_color))
+                restart_bar.set_visible(True)
+                logger.info(f"Accent color reset to default: {default_color}")
+
+            reset_primary_button.connect('clicked', on_reset_primary_clicked)
+            reset_secondary_button.connect('clicked', on_reset_secondary_clicked)
+            reset_background_button.connect('clicked', on_reset_background_clicked)
+            reset_foreground_button.connect('clicked', on_reset_foreground_clicked)
+            reset_accent_button.connect('clicked', on_reset_accent_clicked)
+
+            # Connect restart button handler
+            def on_restart_clicked(button):
+                import shutil
+                import sys
+                try:
+                    # Find rhythmbox executable path
+                    exepath = shutil.which('rhythmbox')
+                    if exepath:
+                        logger.info("Restarting Rhythmbox")
+                        # Replace current process with new Rhythmbox instance
+                        os.execl(exepath, exepath, *sys.argv)
+                    else:
+                        logger.error("Could not find rhythmbox executable")
+                except Exception as e:
+                    logger.error(f"Error restarting Rhythmbox: {e}", exc_info=True)
+
+            restart_app_button.connect('clicked', on_restart_clicked)
+
+            logger.info("Preferences widget created successfully")
+            return preferences_box
+
+        except Exception as e:
+            logger.error(f"Error creating preferences widget: {e}", exc_info=True)
+            error_label = Gtk.Label(label=f"Error loading preferences: {e}")
+            error_label.show()
+            return error_label

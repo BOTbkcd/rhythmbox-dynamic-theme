@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.rhythmbox.plugins.rhythmbox-dynamic-theme" path="/org/gnome/rhythmbox/plugins/rhythmbox-dynamic-theme/">
+    <key name="default-primary" type="s">
+      <default>'#9e0d43'</default>
+      <summary>Default primary color</summary>
+      <description>Default primary color used when album art is not available (hex format)</description>
+    </key>
+    <key name="default-secondary" type="s">
+      <default>'#305b82'</default>
+      <summary>Default secondary color</summary>
+      <description>Default secondary color used when album art is not available (hex format)</description>
+    </key>
+    <key name="default-background" type="s">
+      <default>'#04040a'</default>
+      <summary>Default background color</summary>
+      <description>Default background color used when album art is not available (hex format)</description>
+    </key>
+    <key name="default-foreground" type="s">
+      <default>'#f0f0f0'</default>
+      <summary>Default foreground color</summary>
+      <description>Default foreground color used when album art is not available (hex format)</description>
+    </key>
+    <key name="default-accent" type="s">
+      <default>'#9e0d43'</default>
+      <summary>Default accent color</summary>
+      <description>Default accent color used when album art is not available (hex format)</description>
+    </key>
+  </schema>
+</schemalist>
