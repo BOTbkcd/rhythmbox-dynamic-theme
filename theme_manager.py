@@ -124,7 +124,7 @@ class ThemeManager:
             return False
 
         # Cycle to next state (0, 1, 2,.. then back to 0)
-        self.current_gradient_state = (self.current_gradient_state + 1) % 8
+        self.current_gradient_state = (self.current_gradient_state + 1) % 9
 
         try:
             # Regenerate CSS with new gradient state
@@ -209,13 +209,14 @@ class ThemeManager:
 
             # Define radial gradient positions that will be cycled through via timer
             gradient_positions = [
-                "100% 100%",   
-                "100% 60%",
-                "90% 20%",
-                "50% 0%",
+                "100% 100%",
+                "100% 80%",   
+                "100% 20%",
+                "65% 0%",
+                "35% 0%",
                 "5% 5%",
-                "0% 50%",
-                "20% 80%",
+                "0% 55%",
+                "15% 84%",
                 "65% 100%"
             ]
 
@@ -228,7 +229,7 @@ window,
 .rhythmbox-window,
 window.background,
 window#RBShell {{
-    background: radial-gradient(ellipse at {current_position}, {foreground_blend_15}8%, {blend_30} 30%, {secondary_blend_30} 45%, {background} 65%);
+    background: radial-gradient(ellipse at {current_position}, {foreground_blend_15}7%, {blend_30} 25%, {secondary_blend_30} 42%, {background} 65%);
     background-color: {background};
     color: {foreground};
     transition: background 5s ease-in-out;

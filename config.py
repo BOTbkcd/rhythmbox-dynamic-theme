@@ -23,11 +23,11 @@ class PluginConfiguration:
         self._debounce_delay: float = 0.3
 
         # Default palette colors (fallback when album art is missing)
-        self._default_primary: str = '#C00048'
-        self._default_secondary: str = '#c00048'
-        self._default_background: str = '#152238'
+        self._default_primary: str = '#9e0d43'
+        self._default_secondary: str = '#305b82'
+        self._default_background: str = '#04040a'
         self._default_foreground: str = '#f0f0f0'
-        self._default_accent: str = '#C00048'
+        self._default_accent: str = '#9e0d43'
 
     @property
     def color_intensity(self) -> float:

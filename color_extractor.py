@@ -308,6 +308,7 @@ def extract_colors_sync(image_path: str) -> Optional[ColorPalette]:
         # Primary should be vibrant AND visible (not too dark)
         # Filter out colors that are too dark (lightness < 0.2) as they appear black even if they have high saturation
         vibrant_colors = [c for c in colors_by_saturation if is_vibrant_and_visible(c)]
+        # logger.info(vibrant_colors)
         
         # Pick primary from vibrant visible colors, avoiding background
         if vibrant_colors:
