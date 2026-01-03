@@ -80,7 +80,7 @@ class ThemeManager:
             self.is_active = True
 
             # Start gradient cycling timer
-            self.gradient_timer_id = GLib.timeout_add_seconds(25, self._cycle_gradient)
+            self.gradient_timer_id = GLib.timeout_add_seconds(7, self._cycle_gradient)
 
             logger.info(f"Theme applied successfully (transition={transition})")
 
@@ -217,8 +217,8 @@ class ThemeManager:
                 "5% 5%",
                 "35% 0%",
                 "65% 0%",
-                "100% 80%",   
                 "100% 20%",
+                "100% 80%",   
             ]
 
             # Use current gradient position for this render
