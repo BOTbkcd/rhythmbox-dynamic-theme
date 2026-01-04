@@ -80,6 +80,7 @@ ln -s $(pwd) ~/.local/share/rhythmbox/plugins/rhythmbox-dynamic-theme
 3. Find **Dynamic Theme** in the plugin list
 <img src="screenshots/Config-0.png" width="400" alt="Plugin List">
 4. Check the checkbox to enable it
+
 5. (Optional) Configure the default theme colors
 <img src="screenshots/Config-1.png" width="400" alt="Configuration Options">
 
